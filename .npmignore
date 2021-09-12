@@ -1,0 +1,11 @@
+*.log
+._*
+.DS_Store
+.git
+.npmrc
+npm-debug.log
+
+__tests__
+src
+tsconfig.json
+node_modules
