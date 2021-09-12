@@ -3,6 +3,8 @@
 .DS_Store
 .git
 .npmrc
+.github
+.temp
 npm-debug.log
 
 __tests__

@@ -1,9 +1,9 @@
 import Vuepress from 'vuepress-types'
-import { Options, TypedMap } from '../index'
+import { Options, TypedMap, Context } from '../index'
 
 import { encrypt } from '../utils/encrypt'
 
-export default (options: Options, ctx: Vuepress.Context, encryptedPaths: TypedMap) => {
+export default (options: Options, ctx: Context, encryptedPaths: TypedMap) => {
   
   const { passwd: BasePasswd } = options
 

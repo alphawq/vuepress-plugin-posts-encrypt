@@ -26,7 +26,13 @@ export interface Options {
   // 自定义模板时是否需要注入其他资源
   injectConfig?: InjectConfig
 }
+
 export type TypedMap<T=string, U = string> = Map<T, U>
+interface _Context {
+  __tempdir__?: string
+}
+
+export type Context = _Context & Vuepress.Context
 
 module.exports = (options: Options, ctx: Vuepress.Context): Vuepress.PluginOptionAPI => ({
   name: '@vuepress/plugin-posts-encrypt',
