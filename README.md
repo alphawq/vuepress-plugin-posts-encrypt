@@ -70,7 +70,7 @@ passwd: 1233211234567
 vuepress dev docs 
 ```
 
-<video src="./.github/img/demo.mp4" controls="controls" width="500" height="300"></video>
+<img src="./.github/img/demo.gif" controls="controls" width="500" height="300"></img>
 
 ## Configs
 ```ts
