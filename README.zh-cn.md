@@ -7,7 +7,7 @@
 ![npm type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
 ![](https://img.shields.io/badge/blog-@alphawq-blue.svg?style=social)
 
-> **一个用于为你的博客 `添加访问验证` 的 `vuepress` 插件。**
+> **一个用于为你的博客添加 `访问验证` 功能的 `vuepress` 插件。**
 
 
 ##  安装
@@ -36,7 +36,7 @@ module.exports = {
     ]
 }
 ```
-> 👇[所有配置项](#Configs) 参见下方 `Configs` 部分👇
+> 👇[所有配置项](#配置项) 参见下方 `Configs` 部分👇
 
 
 ### Step 2: 配置博客中需要加密访问的文章
@@ -176,3 +176,7 @@ const options: Options = {
 }
 ```
 👏👏 **One key triple connection** 👏👏
+
+## License
+
+**[MIT](./LICENSE)**

@@ -17,9 +17,10 @@ export const CRYPTO_INJECT = `<script src="https://cdnjs.cloudflare.com/ajax/lib
  * @returns
  */
 export function encrypt(content: string, password: string) {
+
   let salt = cryptoJS.lib.WordArray.random(128 / 8)
 
-  let key = cryptoJS.PBKDF2(password, salt, {
+  let key = cryptoJS.PBKDF2(JSON.stringify(password), salt, {
     keySize: keySize / 32,
     iterations
   })
@@ -52,7 +53,7 @@ export function decrypt(encryptedMsg: string, password: string) {
   let iv = cryptoJS.enc.Hex.parse(encryptedMsg.substr(32, 32))
   let encrypted = encryptedMsg.substring(64)
 
-  let key = cryptoJS.PBKDF2(password, salt, {
+  let key = cryptoJS.PBKDF2(JSON.stringify(password), salt, {
     keySize: keySize / 32,
     iterations
   })

@@ -7,7 +7,7 @@ English | [简体中文](./README.zh-cn.md)
 ![npm type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
 ![](https://img.shields.io/badge/blog-@alphawq-blue.svg?style=social)
 
-> **A `vuepress plugin` to `add access verification` to your blog.**
+> **A `vuepress plugin` to add `access verification` to your blog.**
 
 ## Install
 
@@ -177,4 +177,4 @@ const options: Options = {
 
 ## License
 
-### [MIT](./LICENSE)
+**[MIT](./LICENSE)**

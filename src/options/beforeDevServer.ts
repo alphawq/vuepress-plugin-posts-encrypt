@@ -20,6 +20,9 @@ export default (options: Options, ctx: Context, genCiphertext: Function) => {
     genCiphertext()(genPath)
 
     app.get(serverRoute as string, function(req, res) {
+      if(!fs.existsSync(genPath)) {
+        genCiphertext()(genPath)
+      }
       fs.createReadStream(genPath).pipe(res)
     });
   }
