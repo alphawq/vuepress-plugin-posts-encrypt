@@ -1,8 +1,8 @@
 {
-  "name": "@vuepress/plugin-posts-encrypt",
+  "name": "vuepress-plugin-posts-encrypt",
   "version": "0.0.1",
   "main": "lib/index.js",
-  "repository": "git@github.com:alphawq/vuepress-plugin-encrypt.git",
+  "repository": "https://github.com/alphawq/vuepress-plugin-posts-encrypt.git",
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc"
@@ -15,7 +15,7 @@
     "vuepress-plugin",
     "vuepress-plugin-posts-encrypt"
   ],
-  "author": "Aphasia <alphawq@foxmail.com> (https://alphawq.github.io/_blog)",
+  "author": "Aphasia <alphawq@foxmail.com> (https://github.com/alphawq)",
   "license": "MIT",
   "devDependencies": {
     "clean-css": "^5.1.5",

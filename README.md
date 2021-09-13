@@ -1,11 +1,11 @@
-# `@vuepress/plugin-posts-encrypt`
+# `vuepress-plugin-posts-encrypt`
 
 > **A vuepress plugin for encrypting your posts**
 
 ## Install 安装
 
 ```sh
-yarn add @vuepress/plugin-posts-encrypt
+yarn add vuepress-plugin-posts-encrypt
 ```
 ## Usage 使用
 
@@ -20,7 +20,7 @@ module.exports = {
   // other options...
   plugins: [
     [
-      '@vuepress/plugin-posts-encrypt',
+      'posts-encrypt',
       {
         route: '/auth',
         passwd: '123456',

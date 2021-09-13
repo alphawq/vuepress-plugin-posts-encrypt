@@ -29,9 +29,9 @@ export const wrapperLogger = (prefix, type) => {
   return (...args) => logger[type] ? logger[type](prefix, ...args) : logger.info(prefix, ...args)
 } 
 
-export const error = wrapperLogger(`ERR@vuepress/plugin-posts-encrypt`, 'error')
-export const warn = wrapperLogger(`WARN@vuepress/plugin-posts-encrypt`, 'warn')
-export const info = wrapperLogger(`INFO@vuepress/plugin-posts-encrypt`, 'info')
+export const error = wrapperLogger(`ERR@vuepress-plugin-posts-encrypt`, 'error')
+export const warn = wrapperLogger(`WARN@vuepress-plugin-posts-encrypt`, 'warn')
+export const info = wrapperLogger(`INFO@vuepress-plugin-posts-encrypt`, 'info')
 
 export const DefaultOptions: Options = {
   route: '/auth', // 默认的验证页路由，最终路由会拼接上用户的 base 配置
