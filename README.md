@@ -174,3 +174,7 @@ const options: Options = {
 }
 ```
 👏👏 **One key triple connection** 👏👏
+
+## License
+
+### [MIT](./LICENSE)
