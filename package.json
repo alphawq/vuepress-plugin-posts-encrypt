@@ -29,5 +29,8 @@
     "crypto-js": "4.1.1",
     "uglify-js": "^3.14.2",
     "vuepress-types": "^0.9.4"
+  },
+  "engines": {
+    "node": ">=10"
   }
 }

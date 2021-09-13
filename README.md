@@ -1,17 +1,22 @@
+English | [简体中文](./README.zh-CN.md)
+
 # `vuepress-plugin-posts-encrypt`
 
-> **A vuepress plugin for encrypting your posts**
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/alphawq/vuepress-plugin-posts-encrypt)
+![](https://img.shields.io/npm/l/vuepress-plugin-posts-encrypt?style=flat-square)
+![npm type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
+![](https://img.shields.io/badge/blog-@alphawq-blue.svg?style=social)
 
-## Install 安装
+> **A `vuepress plugin` to `add access verification` to your blog.**
+
+## Install
 
 ```sh
 yarn add vuepress-plugin-posts-encrypt
 ```
-## Usage 使用
+## Usage
 
 ###  Step 1: Init configuration in vuepress config file
-
-👇[All configuration](#Configs) items can be seen below👇
 
 ``` js
 // .vuepress/config.js
@@ -30,9 +35,11 @@ module.exports = {
     ]
 }
 ```
-### Step 2: Configure the posts that need to be encrypted in the blog
+👇[All configuration items](#Configs) can be seen at `Configs` part👇
 
-- Set `secret: true` in the article that needs to be encrypted
+### Step 2: Configure the posts that need to be encrypted access in the blog
+
+- Set `secret: true` in the article [Front Matter](https://vuepress.vuejs.org/zh/guide/frontmatter.html#%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%E7%9A%84-front-matter) 
 
 ```yml
 ---
@@ -45,6 +52,7 @@ tags:
 secret: true
 ---
 ```
+
 - At the same time, you can also set a different password by `passwd` field for each article
 
 ```yml
@@ -62,84 +70,103 @@ passwd: 1233211234567
 
 `Thats it!` 🚀🚀🚀
 
-### Step3: Let's take a look at the effect（看下效果吧）
+### Step3: Run it & See the effect
 
-need set `encryptInDev: true` in the development environment（开发环境下，需要设置 `encryptInDev: true`）
+*BTW*: **Under dev mode `encryptInDev: true` also needs to be configured**
 
-执行如下命令，启动开发服务，
+Execute the following command to start the development service
 
 ```sh
 vuepress dev docs 
 ```
 
-点击进入一个需要验证密码的页面，就可以看到如下效果：
+Click to enter a page that needs to verify the password, you can see the following effects:
 
 <img src="./.github/img/demo.gif" width="300"></img>
 
 ## Configs
 
-### Support custom templates（支持自定义模板）
+### Support custom templates
 
-自定义模板的场景下，插件需要向你的模板文件中注入部分逻辑，如：`密码校验` 相关的逻辑。所以需要在模板中提供注入这部分代码的标记。以下标记并不都是必须的（**除了`<%validate_js_tag%>` & `<%crypto_inject_tag%>`**），你可以自由选择：
+In the custom template scenario, the plugin needs to inject some logic into your template file, such as `the logic related to password verification`. So you need to provide a mark to inject this part of the code in the template. 
 
-(In the custom template scenario, the plug-in needs to inject some logic into your template file, such as the logic related to password verification. So you need to provide a mark to inject this part of the code in the template. Not all of the following marks are required but `<%crypto_inject_tag%>` & `<%validate_js_tag%>`, you are free to choose:)
+The following marks except `<%crypto_inject_tag%>` & `<%validate_js_tag%>` are required, the others are optional. You are free to choose:
 
-`提示：` **以下标记都是从商到下依次插入到模板中，所以需要注意标记的书写位置**
+*BTW*: **The following marks are inserted into the template from top to bottom, so you need to pay attention to the writing position of the mark**
 
-- 模板中内容注入的位置包括如下几种(The location of content injection in the template includes the following)
-  - `<%iview_css_tag%>` `iViewCSS` 组件库注入位置标记 【非必须】
-    - 需要在 `injectConfig` 配置中设置 `iview: true`
-  - `<%iview_js_tag%>` `iViewJS` 组件库注入位置标记 【非必须】
-    - 需要在 `injectConfig` 配置中设置 `iview: true`
-  - `<%animate_css_tag%>` `animatecss` 注入位置标记 【非必须】
-    - 需要在 `injectConfig` 配置中设置 `animate: true`
-  - `<%minified_css_tag%>` 外部 `less` 文件编译后的注入位置标记【非必须】
-    - 如果你不想在模板里面写 `css`，这个配置可以允许你将模板中需要用到的样式文件单独抽离到 `less` 文件中，插件会帮你`编译并插入`到对应位置
-    - 如果，要在 `injectConfig` 中设置 `less` 样式文件的绝对路径
-  - `<%crypto_inject_tag%>` `CryptoJS` 脚本文件插入位置 【必须】
-  - `<%validate_js_tag%>` **密码校验**以及**已验证路由的存储**相关逻辑的注入位置标记 【必须】
-### 支持设置密码过期时间
+The position markers for content injection in the template include the following
 
-默认情况下，已验证通过的路由在同一台设备同一个浏览器且用户没有清理本地缓存的情况下，下次进来是不需要再次进行验证的，因为是存储在 `localstorage` 中的
+#### `<%iview_css_tag%>` [`Optional`]
 
-如果你不想这样的话，可以为密码设置 `expires`，单位是`毫秒（ms）`。这个过期时间是针对每个路由而言的，而不是所有路由。
+> [`iView`](https://www.iviewui.com/docs/introduce) Component library's CSS injection location mark. 
+- Need to set `iview: true` in the `injectConfig` configuration
 
-`提示:` **过期时间不要设置得过短，否则可能会造成路由死循环**
+#### `<%animate_css_tag%>` [`Optional`]
 
-以下是支持的所有配置选项：
+> [`Animate.css`](https://animate.style/) injection location mark.
+- Need to set `animate: true` in the `injectConfig` configuration
+
+#### `<%iview_js_tag%>`  [`Optional`]
+
+> [`iView`](https://www.iviewui.com/docs/introduce) Component library's JS injection location mark.
+- Need to set `iview: true` in the `injectConfig` configuration
+
+#### `<%minified_css_tag%>` [`Optional`]
+
+> Injection location marker for compiled external 'less' files
+
+- If you don't want to write `css` in the template, this configuration allows you to separate the style files that need to be used in the template into the `less` file. The plugin will help you `compile and insert` to the corresponding location. You only need Specify the absolute path of the style file in the `less` setting of `injectConfig`
+
+
+#### `<%crypto_inject_tag%>` [`Required`]
+- [`CryptoJS`](https://github.com/brix/crypto-js) Script file insertion position
+
+#### `<%validate_js_tag%>` [`Required`]
+>  **Password verification** and **Verified routing storage** injection location mark of related logic
+
+### Support setting password expiration time
+
+By default, if the verified route is on the same device and the same browser and the user does not clear the local cache, there is no need to verify again next time you come in, because it is stored in `localstorage`
+
+If you don't want this, you can set `expires` for the password, the unit is `milliseconds (ms)`. This expiration time is for each route, not all routes.
+
+*BTW*: **Do not set the expiration time too short, otherwise it may cause an endless loop of routing**
+
+### The following are all supported configuration options：
 
 ```ts
 interface InjectConfig {
-  // 自定义模板外联的less文件地址
+  // The address of the less file for custom template outreach
   less?: string
-  // 是否注入IView组件库，默认 false
+  // Whether to inject the IView component library, the default is false
   iview?: boolean
-  // 是否注入anmitecss动画库，默认 false
+  // Whether to inject anmitecss animation library, the default is false
   animate?: boolean
 }
 
 interface Options {
-  // 验证页面的路由地址， 默认`/auth`
+  // The route of the authentication page, the default is `/auth`
   route?: string
-  // 默认密码
+  // Basic password
   passwd: string
-  // 自定义密码验证模板
+  // Custom password verification template file address
   template?: string
-  // 开发环境是否加密，默认 false
+  // Whether the development environment is encrypted, the default is false
   encryptInDev?: boolean
-  // 密码过期时间，默认永久有效，单位：ms
+  // Password expiration time, which is permanently valid by default, unit: ms
   expires?: number
-  // 自定义模板时是否需要注入其他资源
+  // Determine whether to inject other resources during template customization
   injectConfig?: InjectConfig
 }
 
+// The default options 
 const options: Options = {
-  route: '/auth', // 默认的验证页路由，最终路由会拼接上用户的 base 配置
-  passwd: 'hello world', // 默认密码 `hello world`
-  template: '', // 自定义模板的文件路径，不指定则使用默认模板
-  encryptInDev: false, // 开发模式下是否开启文章加密（可用于预览）， 默认 false
-  expires: 0, // 密码过期时间，默认永不过期
-  injectConfig: { // 自定义模板时，需要注入的外部资源配置
+  route: '/auth',
+  passwd: 'hello world',
+  template: '',
+  encryptInDev: false,
+  expires: 0,
+  injectConfig: {
     less: '',
     iview: false,
     animate: false
