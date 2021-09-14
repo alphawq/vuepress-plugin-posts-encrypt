@@ -184,7 +184,7 @@ const options: Options = {
 👏👏 **One key triple connection** 👏👏
 ## Changelog
 
-[CHANGELOG.md](./CHANGELOG)
+[CHANGELOG.md](./CHANGELOG.md)
 
 ## License
 
