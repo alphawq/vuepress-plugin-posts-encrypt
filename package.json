@@ -1,16 +1,30 @@
 {
-  "private": false,
-  "name": "vuepress-plugin-posts-encrypt",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "nohoist": [
+    "**"
+  ],
+  "name": "posts-encrypt",
   "version": "0.0.2",
-  "main": "lib/index.js",
+  "main": "packages/plugin/lib/index.js",
   "repository": "https://github.com/alphawq/vuepress-plugin-posts-encrypt.git",
   "bugs": {
     "url": "https://github.com/alphawq/vuepress-plugin-posts-encrypt/issues",
     "email": "alphawq@foxmail.com"
   },
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc",
+    "clean": "lerna clean && rm -rf node_modules",
+    "dev": "yarn build:encrypt && yarn dev:blog",
+    "dev:encrypt": "yarn workspace vuepress-plugin-posts-encrypt dev",
+    "dev:blog": "yarn workspace blog dev",
+    "build": "yarn build:encrypt && yarn build:blog",
+    "build:encrypt": "yarn workspace vuepress-plugin-posts-encrypt build",
+    "build:blog": "yarn workspace blog build",
+    "pkg:changed": "lerna changed",
+    "pkg:diff": "lerna diff",
+    "pkg:list": "lerna ls -l",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
@@ -42,23 +56,20 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@types/node": "~16.7.13",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
+    "lerna": "^4.0.0",
+    "less": "3.9.0",
+    "less-loader": "^5.0.0",
     "lint-staged": "^11.1.2",
     "pinst": "^2.1.6",
     "prettier": "^2.4.0",
-    "typescript": "^4.4.2"
-  },
-  "dependencies": {
-    "@types/node": "~16.7.13",
-    "clean-css": "^5.1.5",
-    "crypto-js": "4.1.1",
-    "less": "^4.1.1",
-    "uglify-js": "^3.14.2",
+    "typescript": "^4.4.2",
     "vuepress": "^1.8.2",
     "vuepress-types": "^0.9.4"
   },
