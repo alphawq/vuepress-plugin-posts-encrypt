@@ -7,11 +7,14 @@
 .temp
 npm-debug.log
 
-__tests__
 src
+*.config.js
+__tests__
+scripts
 tsconfig.json
 node_modules
 .eslintrc.js
 .prettierrc.js
 .husky
 commitlint.config.js
+coverage

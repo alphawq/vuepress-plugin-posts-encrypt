@@ -6,3 +6,4 @@ logs
 .env
 .temp
 dist
+coverage

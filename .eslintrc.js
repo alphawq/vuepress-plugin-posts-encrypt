@@ -12,10 +12,10 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
-    // 允许方法不设置参数类型以及返回值类型
-    '@typescript-eslint/explicit-module-boundary-types': 0,
     allowArgumentsExplicitlyTypedAsAny: 0,
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['off']
+    '@typescript-eslint/no-unused-vars': 0,
+    '@typescript-eslint/no-var-requires': 0,
+    // 允许方法不设置参数类型以及返回值类型
+    '@typescript-eslint/explicit-module-boundary-types': 0
   }
 }

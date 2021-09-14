@@ -12,6 +12,5 @@
     "strict": true,
     "typeRoots": ["node_modules/@types"]
   },
-  "include": ["packages/plugin/assets", "packages/plugin/src", "packages/plugin/blog/docs/.vuepress"],
-  "exclude": ["node_modules", "lib", "__tests__"]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

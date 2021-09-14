@@ -27,7 +27,8 @@
     "pkg:list": "lerna ls -l",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "postpublish": "pinst --enable",
+    "test": "jest --config scripts/jest.config.js --runInBand"
   },
   "config": {
     "commitizen": {
@@ -36,6 +37,7 @@
   },
   "lint-staged": {
     "*.{js,json,css}": [
+      "eslint --fix",
       "prettier --write"
     ],
     "*.ts": [
@@ -44,10 +46,8 @@
     ]
   },
   "keywords": [
-    "vue",
-    "plugin",
-    "encrypt",
     "vuepress",
+    "posts-encrypt",
     "vuepress-plugin",
     "vuepress-plugin-posts-encrypt"
   ],
@@ -59,16 +59,19 @@
     "@types/node": "~16.7.13",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
+    "babel-jest": "^27.2.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.2",
+    "jest": "^27.2.0",
     "lerna": "^4.0.0",
     "less": "3.9.0",
     "less-loader": "^5.0.0",
     "lint-staged": "^11.1.2",
     "pinst": "^2.1.6",
     "prettier": "^2.4.0",
+    "ts-jest": "^27.0.5",
     "typescript": "^4.4.2",
     "vuepress": "^1.8.2",
     "vuepress-types": "^0.9.4"
