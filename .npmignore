@@ -8,13 +8,14 @@
 npm-debug.log
 
 src
-*.config.js
-__tests__
 scripts
-tsconfig.json
+__tests__
 node_modules
+*.config.js
+tsconfig.json
 .eslintrc.js
 .prettierrc.js
 .husky
+lerna.json
 commitlint.config.js
 coverage
