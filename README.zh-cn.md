@@ -2,10 +2,10 @@
 
 # `vuepress-plugin-posts-encrypt`
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/alphawq/vuepress-plugin-posts-encrypt)
-![](https://img.shields.io/npm/l/vuepress-plugin-posts-encrypt?style=flat-square)
-![npm type definitions](https://img.shields.io/npm/types/typescript?style=flat-square)
-![](https://img.shields.io/badge/blog-@alphawq-blue.svg?style=social)
+![npm (tag)](https://img.shields.io/npm/v/vuepress-plugin-posts-encrypt/latest?style=flat-square&color=blue)
+![License](https://img.shields.io/npm/l/vuepress-plugin-posts-encrypt?style=flat-square&color=red&label=License)
+![npm downloads](https://img.shields.io/npm/dt/vuepress-plugin-posts-encrypt?style=flat-square&label=Downloads)
+[![Blog](https://img.shields.io/badge/blog-@alphawq-blue.svg?style=social)](https://alphawq.github.io/_blog/)
 
 > **一个用于为你的博客添加 `访问验证` 功能的 `vuepress` 插件。**
 
@@ -176,12 +176,15 @@ const options: Options = {
     // 自定义模板时，需要注入的外部资源配置
     less: '',
     iview: false,
-    animate: false,
-  },
+    animate: false
+  }
 }
 ```
 
 👏👏 **One key triple connection** 👏👏
+## Changelog
+
+[CHANGELOG.md](./CHANGELOG)
 
 ## License
 
