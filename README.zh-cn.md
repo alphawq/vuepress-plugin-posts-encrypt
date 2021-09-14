@@ -9,17 +9,17 @@
 
 > **一个用于为你的博客添加 `访问验证` 功能的 `vuepress` 插件。**
 
-
-##  安装
+## 安装
 
 ```sh
 yarn add vuepress-plugin-posts-encrypt
 ```
+
 ## Usage 使用
 
-###  Step 1: 在 `.vuepress/config.js` 中初始化配置
+### Step 1: 在 `.vuepress/config.js` 中初始化配置
 
-``` js
+```js
 // .vuepress/config.js
 module.exports = {
 
@@ -36,8 +36,8 @@ module.exports = {
     ]
 }
 ```
-> 👇[所有配置项](#配置项) 参见下方 `Configs` 部分👇
 
+> 👇[所有配置项](#配置项) 参见下方 `Configs` 部分 👇
 
 ### Step 2: 配置博客中需要加密访问的文章
 
@@ -74,12 +74,12 @@ passwd: 1233211234567
 
 ### Step3: 运行起来看下效果吧
 
-*BTW*： **开发环境下，还需要配置 `encryptInDev: true`**
+_BTW_： **开发环境下，还需要配置 `encryptInDev: true`**
 
 执行如下命令，启动开发服务，
 
 ```sh
-vuepress dev docs 
+vuepress dev docs
 ```
 
 点击进入一个需要验证密码的页面，就可以看到如下效果：
@@ -94,38 +94,42 @@ vuepress dev docs
 
 以下标记除了 **`<%validate_js_tag%>` & `<%crypto_inject_tag%>`** 之外，其他都是可选的，你可以自由选择：
 
-*BTW*：**以下标记都是自上而下依次插入到模板中的，所以需要额外注意标记的书写位置**
+_BTW_：**以下标记都是自上而下依次插入到模板中的，所以需要额外注意标记的书写位置**
 
 模板中内容注入的位置标记包括如下几种
 
 #### `<%iview_css_tag%>` 【非必须】
 
-> [`iView`](https://www.iviewui.com/docs/introduce) 组件库 `CSS` 资源注入位置标记 
-- 需要在 `injectConfig` 配置中设置 `iview: true`
+> [`iView`](https://www.iviewui.com/docs/introduce) 组件库 `CSS` 资源注入位置标记
 
+- 需要在 `injectConfig` 配置中设置 `iview: true`
 
 #### `<%animate_css_tag%>` 【非必须】
 
 > [`Animate.css`](https://animate.style/) 注入位置标记
+
 - 需要在 `injectConfig` 配置中设置 `animate: true`
 
 #### `<%iview_js_tag%>` 【非必须】
 
 > [`iView`](https://www.iviewui.com/docs/introduce) 组件库 `JS` 注入位置标记
+
 - 需要在 `injectConfig` 配置中设置 `iview: true`
 
 #### `<%minified_css_tag%>` 【非必须】
 
 > 外部 `less` 文件编译后的注入位置标记
+
 - 如果你不想在模板里面写 `css`，这个配置可以允许你将模板中需要用到的样式文件单独抽离到 `less` 文件中，插件会帮你 `编译并插入` 到对应位置。
-你只需要在 `injectConfig` 的 `less` 设置中指定样式文件的绝对路径即可
+  你只需要在 `injectConfig` 的 `less` 设置中指定样式文件的绝对路径即可
 
 #### `<%crypto_inject_tag%>` 【必须】
-> [`CryptoJS`](https://github.com/brix/crypto-js) 脚本文件插入位置 
+
+> [`CryptoJS`](https://github.com/brix/crypto-js) 脚本文件插入位置
 
 #### `<%validate_js_tag%>` 【必须】
-> **密码校验**以及**已验证路由的存储**相关逻辑的注入位置标记 
 
+> **密码校验**以及**已验证路由的存储**相关逻辑的注入位置标记
 
 ### 支持设置密码过期时间
 
@@ -133,7 +137,7 @@ vuepress dev docs
 
 如果你不想这样的话，可以为密码设置 `expires`，单位是`毫秒（ms）`。这个过期时间是针对每个路由而言的，而不是所有路由。
 
-*BTW*: **过期时间不要设置得过短，否则可能会造成路由死循环**
+_BTW_: **过期时间不要设置得过短，否则可能会造成路由死循环**
 
 ### 以下是支持的所有配置选项：
 
@@ -168,13 +172,15 @@ const options: Options = {
   template: '', // 自定义模板的文件路径，不指定则使用默认模板
   encryptInDev: false, // 开发模式下是否开启文章加密（可用于预览）， 默认 false
   expires: 0, // 密码过期时间，默认永不过期
-  injectConfig: { // 自定义模板时，需要注入的外部资源配置
+  injectConfig: {
+    // 自定义模板时，需要注入的外部资源配置
     less: '',
     iview: false,
-    animate: false
-  }
+    animate: false,
+  },
 }
 ```
+
 👏👏 **One key triple connection** 👏👏
 
 ## License

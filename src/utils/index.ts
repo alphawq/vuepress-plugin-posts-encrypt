@@ -1,16 +1,12 @@
 import { cpus } from 'os'
 import uglifyJS from 'uglify-js'
 import CleanCSS from 'clean-css'
-import { execSync }  from 'child_process'
+import { execSync } from 'child_process'
 import fs, { writeFileSync, readFileSync } from 'fs'
-import { 
-  resolve as pathResolve,
-  parse as pathParse,
-  join as pathJoin
-} from 'path'
+import { resolve as pathResolve, parse as pathParse, join as pathJoin } from 'path'
 import { toAbsolutePath, logger } from '@vuepress/shared-utils'
 
-import { Options } from '../index' 
+import { Options } from '../index'
 
 import { CRYPTO_INJECT } from './encrypt'
 
@@ -24,10 +20,10 @@ export const IVIEW_JS_TAG = `<script type="text/javascript" src="//unpkg.com/vie
 export const STORAGE_KEY = '__vuepress_posts_encrypt_plugin__'
 export const TMPL_PATH = pathResolve(__dirname, '../../assets/index.html')
 export const LESS_PATH = pathResolve(__dirname, '../../assets/index.less')
-export const isObject = (o) => o && (typeof o === 'object')
-export const wrapperLogger = (prefix, type) => {
-  return (...args) => logger[type] ? logger[type](prefix, ...args) : logger.info(prefix, ...args)
-} 
+export const isObject = (o): boolean => o && typeof o === 'object'
+export const wrapperLogger = (prefix: string, type: string) => {
+  return (...args) => (logger[type] ? logger[type](prefix, ...args) : logger.info(prefix, ...args))
+}
 
 export const error = wrapperLogger(`ERR@vuepress-plugin-posts-encrypt`, 'error')
 export const warn = wrapperLogger(`WARN@vuepress-plugin-posts-encrypt`, 'warn')
@@ -49,23 +45,23 @@ export const DefaultOptions: Options = {
 
 /**
  * 合并配置
- * 
- * @param {object} base 
- * @param {object} options 
- * */ 
+ *
+ * @param {object} base
+ * @param {object} options
+ * */
 export const mergeOptions = (base = DefaultOptions, options = {}): Options => {
-  let $options = Object.create(null)
+  const $options = Object.create(null)
   Object.entries(base).reduce((pre, cur) => {
-    let [ key, value ] = cur
-    let user = options[key]
+    const [key, value] = cur
+    const user = options[key]
     typeof user !== 'undefined'
       ? isObject(user)
         ? (pre[key] = mergeOptions(value, options[key]))
-        : pre[key] = user
-      : pre[key] = value
+        : (pre[key] = user)
+      : (pre[key] = value)
     return pre
   }, $options)
-  
+
   return $options
 }
 
@@ -73,7 +69,7 @@ export const mergeOptions = (base = DefaultOptions, options = {}): Options => {
  * 生成注入的脚本
  *
  * @export
- * @param {string} text 
+ * @param {string} text
  * @param {string} base
  * @param {number} expires 过期时间，默认 0，不过期
  * @param {boolean} isCustom 是否是用户自定义模板
@@ -154,7 +150,7 @@ export const genInjectedJS = (text: string, base: string, isCustom: boolean, exp
        * */ 
       location.replace('${base}' + \`\${getQuery('path')}\`)`
 
-  return isCustom 
+  return isCustom
     ? `${part1}\n${part2}\n${part3}`
     : `${part1}\n
     new Vue({
@@ -229,14 +225,14 @@ export const genInjectedJS = (text: string, base: string, isCustom: boolean, exp
  * 生成注入的css
  *
  * @export
- * @param {string} fromPath 
+ * @param {string} fromPath
  * @param {string} toPath 写到 tmp 下
  */
 export const genInjectedCSS = (fromPath, outPath) => {
-  if(!fromPath || typeof fromPath !== 'string') return ''
+  if (!fromPath || typeof fromPath !== 'string') return ''
   try {
-    let _from = toAbsolutePath(fromPath)
-    let _out = toAbsolutePath(pathJoin(outPath, `index.css`))
+    const _from = toAbsolutePath(fromPath)
+    const _out = toAbsolutePath(pathJoin(outPath, `index.css`))
     // 编译less
     execSync(`npx lessc ${_from} ${_out}`)
     // 压缩
@@ -246,6 +242,7 @@ export const genInjectedCSS = (fromPath, outPath) => {
     return ''
   }
 }
+
 /**
  * 异步并发限制
  *
@@ -258,35 +255,35 @@ export const genInjectedCSS = (fromPath, outPath) => {
 export async function limitAsyncConcurrency(sources: Map<any, any>, callback, limit = LIMIT) {
   let done
   let runningCount = 0
-  let lock: Function[] =[]
+  const lock: Array<(v?: unknown) => void> = []
   let total = sources.size
-  if(!total) return
+  if (!total) return
 
-  let p = new Promise(resolve => (done = resolve))
+  const p = new Promise(resolve => (done = resolve))
 
-  let block = async () => {
-    return new Promise((resolve) => lock.push(resolve))
+  const block = async () => {
+    return new Promise(resolve => lock.push(resolve))
   }
 
-  let next = () => {
-    let fn = lock.shift()
+  const next = () => {
+    const fn = lock.shift()
     fn && fn()
     runningCount--
   }
 
-  let getFileContent = async (item): Promise<void> => {
-    if(runningCount >= limit) await block()
+  const getFileContent = async (item): Promise<void> => {
+    if (runningCount >= limit) await block()
     runningCount++
-    
+
     new Promise((resolve, reject) => callback(resolve, reject, next, item)).then(res => {
       total--
-      if(!total) {
+      if (!total) {
         done()
       }
     })
   }
 
-  for (let item of sources.entries()) {
+  for (const item of sources.entries()) {
     getFileContent(item)
   }
 
@@ -307,14 +304,14 @@ export function render(tpl, data) {
   })
 }
 
-export interface ReplaceData{
-  [k:string]: string
+export interface ReplaceData {
+  [k: string]: string
 }
 
 /**
  * 用于 build 构建时，向 outPath 路径下写入 tmplPath 文件内容
  * 并替换模板内的占位符，注入变量值
- * 
+ *
  * @export
  * @param {string} tmplPath
  * @param {string} outPath
@@ -322,7 +319,7 @@ export interface ReplaceData{
  */
 export function genFile(tmplPath: string, outPath: string, data: ReplaceData) {
   // 模板文件内容缓存
-  let templateContents: any = null
+  let templateContents: string | null = null
   try {
     templateContents = readFileSync(tmplPath, 'utf8')
   } catch (e) {
@@ -330,13 +327,16 @@ export function genFile(tmplPath: string, outPath: string, data: ReplaceData) {
     error('Failure: failed to read template: ' + tmplPath)
   }
 
-  let renderedTemplate = render(templateContents, Object.assign(data, {
-    crypto_inject_tag: CRYPTO_INJECT,
-  }))
+  const renderedTemplate = render(
+    templateContents,
+    Object.assign(data, {
+      crypto_inject_tag: CRYPTO_INJECT
+    })
+  )
 
   try {
     writeFileSync(outPath, renderedTemplate)
-  } catch(e) {
+  } catch (e) {
     console.log(e)
     error('Failure: could not write template:' + outPath)
   }
@@ -370,7 +370,7 @@ export function mkdir(_path) {
   try {
     // execSync(`mkdir -p ${ctx.tempPath}/${pkg.name}`)
     execSync(`mkdir -p ${_path}`)
-  } catch(e) {
+  } catch (e) {
     console.log(e)
     error('Failure: failed to mkdir: ' + _path)
   }
@@ -381,11 +381,11 @@ export function mkdir(_path) {
  *
  * @param {*} _path
  */
-export function removedir (_path) {
+export function removedir(_path) {
   try {
     if (fs.existsSync(_path)) {
       const files = fs.readdirSync(_path)
-      files.forEach((file) => {
+      files.forEach(file => {
         const nextFilePath = `${_path}/${file}`
         const states = fs.statSync(nextFilePath)
         if (states.isDirectory()) {

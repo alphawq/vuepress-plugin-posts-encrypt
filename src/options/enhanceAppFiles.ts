@@ -1,6 +1,6 @@
 import { Options, Context } from '../index'
 
-import { path }  from '@vuepress/shared-utils'
+import { path } from '@vuepress/shared-utils'
 import genEnhanceAppFile from '../../assets/enhanceAppFiles'
 import { STORAGE_KEY } from '../utils'
 

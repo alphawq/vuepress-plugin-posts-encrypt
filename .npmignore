@@ -11,3 +11,7 @@ __tests__
 src
 tsconfig.json
 node_modules
+.eslintrc.js
+.prettierrc.js
+.husky
+commitlint.config.js
