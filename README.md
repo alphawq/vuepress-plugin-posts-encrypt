@@ -185,7 +185,6 @@ const options: Options = {
 ## Changelog
 
 [CHANGELOG.md](./CHANGELOG.md)
-
 ## License
 
 **[MIT](./LICENSE)**
