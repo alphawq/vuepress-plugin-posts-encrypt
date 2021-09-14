@@ -59,7 +59,7 @@ export default (options: Options, ctx: Context): Vuepress.PluginOptionAPI => {
             {
               mangle: {
                 toplevel: true,
-                reserved: ['Vue', '']
+                reserved: ['Vue']
               },
               output: {
                 comments: false

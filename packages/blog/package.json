@@ -16,5 +16,6 @@
     "@vuepress/plugin-medium-zoom": "^1.8.2",
     "vuepress-plugin-posts-encrypt": "0.0.2",
     "vuepress-theme-reco": "^1.6.6"
-  }
+  },
+  "devDependencies": {}
 }
