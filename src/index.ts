@@ -27,7 +27,7 @@ export interface Options {
   injectConfig?: InjectConfig
 }
 
-export type TypedMap<T=string, U = string> = Map<T, U>
+export type TypedMap<T = string, U = string> = Map<T, U>
 interface _Context {
   __tempdir__?: string
 }

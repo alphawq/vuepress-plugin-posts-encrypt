@@ -1,5 +1,4 @@
-
-module.exports = function genEnhanceAppFile (path, STORAGE_KEY) {
+module.exports = function genEnhanceAppFile(path, STORAGE_KEY) {
   return `export default ({ Vue, router, siteData, isServer }) => {
     // 获取所有需要加密的路由
     if(!isServer) {

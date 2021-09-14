@@ -17,17 +17,18 @@ export const CRYPTO_INJECT = `<script src="https://cdnjs.cloudflare.com/ajax/lib
  * @returns
  */
 export function encrypt(content: string, password: string) {
+  // 必须是字符串类型
+  password += ''
+  const salt = cryptoJS.lib.WordArray.random(128 / 8)
 
-  let salt = cryptoJS.lib.WordArray.random(128 / 8)
-
-  let key = cryptoJS.PBKDF2(JSON.stringify(password), salt, {
+  const key = cryptoJS.PBKDF2(password, salt, {
     keySize: keySize / 32,
     iterations
   })
 
-  let iv = cryptoJS.lib.WordArray.random(128 / 8)
+  const iv = cryptoJS.lib.WordArray.random(128 / 8)
 
-  let encrypted = cryptoJS.AES.encrypt(content, key, {
+  const encrypted = cryptoJS.AES.encrypt(content, key, {
     iv: iv,
     padding: cryptoJS.pad.Pkcs7,
     mode: cryptoJS.mode.CBC
@@ -35,9 +36,9 @@ export function encrypt(content: string, password: string) {
 
   // salt, iv will be hex 32 in length
   // append them to the ciphertext for use  in decryption
-  let encryptedMsg = salt.toString() + iv.toString() + encrypted.toString()
-  let hmac = cryptoJS.HmacSHA256(encryptedMsg, cryptoJS.SHA256(password).toString()).toString();
-  return hmac + encryptedMsg;
+  const encryptedMsg = salt.toString() + iv.toString() + encrypted.toString()
+  const hmac = cryptoJS.HmacSHA256(encryptedMsg, cryptoJS.SHA256(password).toString()).toString()
+  return hmac + encryptedMsg
 }
 
 /**
@@ -49,16 +50,16 @@ export function encrypt(content: string, password: string) {
  * @returns
  */
 export function decrypt(encryptedMsg: string, password: string) {
-  let salt = cryptoJS.enc.Hex.parse(encryptedMsg.substr(0, 32))
-  let iv = cryptoJS.enc.Hex.parse(encryptedMsg.substr(32, 32))
-  let encrypted = encryptedMsg.substring(64)
+  const salt = cryptoJS.enc.Hex.parse(encryptedMsg.substr(0, 32))
+  const iv = cryptoJS.enc.Hex.parse(encryptedMsg.substr(32, 32))
+  const encrypted = encryptedMsg.substring(64)
 
-  let key = cryptoJS.PBKDF2(JSON.stringify(password), salt, {
+  const key = cryptoJS.PBKDF2(password, salt, {
     keySize: keySize / 32,
     iterations
   })
 
-  let decrypted = cryptoJS.AES.decrypt(encrypted, key, {
+  const decrypted = cryptoJS.AES.decrypt(encrypted, key, {
     iv: iv,
     padding: cryptoJS.pad.Pkcs7,
     mode: cryptoJS.mode.CBC
@@ -75,20 +76,20 @@ export function decrypt(encryptedMsg: string, password: string) {
  * @param {string} password 密码
  * @returns {boolean} 密码是否正确
  */
-export function validate(encryptedMsg: string, password: string) {
-  let encryptedHMAC = encryptedMsg.substring(0, 64)
-  let encryptedHTML = encryptedMsg.substring(64)
-  let decryptedHMAC = cryptoJS.HmacSHA256(encryptedHTML, cryptoJS.SHA256(password).toString()).toString();
+export function validate(encryptedMsg: string, password: string): boolean {
+  const encryptedHMAC = encryptedMsg.substring(0, 64)
+  const encryptedHTML = encryptedMsg.substring(64)
+  const decryptedHMAC = cryptoJS.HmacSHA256(encryptedHTML, cryptoJS.SHA256(password).toString()).toString()
 
   return decryptedHMAC === encryptedHMAC
 }
 
 export function encryptAndGenFile(encryptedPaths) {
   return (resolve, reject, next, item) => {
-    let [ path, pass ] = item
+    const [path, pass] = item
     fs.readFile(path, { encoding: 'utf8' }, (err, content) => {
       next()
-      if(err) {
+      if (err) {
         encryptedPaths.delete(path)
         reject(err)
       }

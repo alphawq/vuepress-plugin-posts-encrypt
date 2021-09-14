@@ -1,6 +1,4 @@
-import { Options, Context } from '../index'
-
-export default (options: Options, ctx: Context) => () => ({
+export default () => () => ({
   name: 'decrypt.js',
   content: `
     import cryptoJS from 'crypto-js'
@@ -16,6 +14,3 @@ export default (options: Options, ctx: Context) => () => ({
     }
     `
 })
-
-
-
