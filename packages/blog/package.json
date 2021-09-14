@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "blog",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "A Blog Demo",
   "main": "index.js",
   "repository": "https://github.com/alphawq/vuepress-plugin-posts-encrypt.git",
