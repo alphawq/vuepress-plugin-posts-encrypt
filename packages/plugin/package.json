@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-posts-encrypt",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "repository": "https://github.com/alphawq/vuepress-plugin-posts-encrypt.git",
   "bugs": {
