@@ -252,7 +252,7 @@ export const genInjectedCSS = (fromPath, outPath) => {
  * @param {*} [limit=LIMIT]
  * @returns
  */
-export async function limitAsyncConcurrency(sources: Map<any, any>, callback, limit = LIMIT) {
+export async function limitAsyncConcurrency(sources: Map<unknown, unknown>, callback, limit = LIMIT) {
   let done
   let runningCount = 0
   const lock: Array<(v?: unknown) => void> = []
