@@ -4,7 +4,9 @@
   "packages": ["packages/*"],
   "command": {
     "version": {
-      "conventionalCommits": true
+      "allowBranch": "main",
+      "conventionalCommits": true,
+      "ignoreChanges": ["**/*.md"]
     }
   },
   "version": "0.0.2"
