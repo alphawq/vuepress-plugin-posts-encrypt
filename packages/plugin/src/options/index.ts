@@ -36,7 +36,7 @@ export default (options: Options, ctx: Context): Vuepress.PluginOptionAPI => {
   if (!isProd && !encryptInDev)
     return {
       ready() {
-        info('Plugin Inactive: ' + JSON.stringify(_options))
+        info('Plugin Inactive: \n' + JSON.stringify(_options, null, 4))
       }
     }
 
@@ -80,8 +80,8 @@ export default (options: Options, ctx: Context): Vuepress.PluginOptionAPI => {
           minified_css_tag: minifyedCSS.styles ? `<style type="text/css">${minifyedCSS.styles}</style>` : ''
         })
       } catch (e) {
+        error(e + '')
         console.log(e)
-        error('')
       }
     }
   }
