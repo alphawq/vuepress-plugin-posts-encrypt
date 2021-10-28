@@ -50,7 +50,7 @@ export default (options: Options, ctx: Context): Vuepress.PluginOptionAPI => {
       return `${pre}${k}_${v}${index == size - 1 ? '' : ';'}`
     }, '')
 
-    return (genPath, options) => {
+    return (genPath, options, cb) => {
       try {
         const jsContent = genInjectedJS(text, base, isCustom, expires)
         const uglifiedJS = uglify(
@@ -79,6 +79,8 @@ export default (options: Options, ctx: Context): Vuepress.PluginOptionAPI => {
           validate_js_tag: `<script>${isCustom ? jsContent : uglifiedJS.code}</script>`,
           minified_css_tag: minifyedCSS.styles ? `<style type="text/css">${minifyedCSS.styles}</style>` : ''
         })
+
+        cb && cb(tempdir)
       } catch (e) {
         error(e + '')
         console.log(e)

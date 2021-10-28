@@ -2,9 +2,9 @@ import { cpus } from 'os'
 import uglifyJS from 'uglify-js'
 import CleanCSS from 'clean-css'
 import { execSync } from 'child_process'
-import fs, { writeFileSync, readFileSync } from 'fs'
+import { writeFileSync, readFileSync } from 'fs'
 import { resolve as pathResolve, parse as pathParse, join as pathJoin } from 'path'
-import { toAbsolutePath, logger } from '@vuepress/shared-utils'
+import { fs, toAbsolutePath, logger } from '@vuepress/shared-utils'
 
 import { Options } from '../index'
 
@@ -368,8 +368,7 @@ export function minifyCss(content) {
 
 export function mkdir(_path) {
   try {
-    // execSync(`mkdir -p ${ctx.tempPath}/${pkg.name}`)
-    execSync(`mkdir -p ${_path}`)
+    fs.ensureDirSync(_path)
   } catch (e) {
     console.log(e)
     error('Failure: failed to mkdir: ' + _path)
@@ -383,21 +382,7 @@ export function mkdir(_path) {
  */
 export function removedir(_path) {
   try {
-    if (fs.existsSync(_path)) {
-      const files = fs.readdirSync(_path)
-      files.forEach(file => {
-        const nextFilePath = `${_path}/${file}`
-        const states = fs.statSync(nextFilePath)
-        if (states.isDirectory()) {
-          //recurse
-          removedir(nextFilePath)
-        } else {
-          //delete file
-          fs.unlinkSync(nextFilePath)
-        }
-      })
-      fs.rmdirSync(_path)
-    }
+    fs.removeSync(_path)
   } catch (e) {
     console.log(e)
     error('Failure: failed to removedir: ' + _path)
