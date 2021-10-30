@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/alphawq/vuepress-plugin-posts-encrypt/compare/v0.0.4...v0.0.5) (2021-10-30)
+
+
+### Bug Fixes
+
+* route ends with .html ([1e58879](https://github.com/alphawq/vuepress-plugin-posts-encrypt/commit/1e588791e0ad79e4a23a5a8a32b895ec7310b40e))
+
+
+
+
+
 ## [0.0.4](https://github.com/alphawq/vuepress-plugin-posts-encrypt/compare/v0.0.3...v0.0.4) (2021-10-28)
 
 
