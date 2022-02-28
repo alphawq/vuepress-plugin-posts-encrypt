@@ -12,7 +12,7 @@ export default (options: Options, ctx: Context, genCiphertext) => {
   const genPath = path.join(ctx.__tempdir__ || ctx.tempPath, `${route}.html`)
 
   return async (app: Application) => {
-    const serverRoute = path.join(ctx.base, route as string)
+    const serverRoute = ctx.base.replace(/\/$/, '') + route
 
     genCiphertext()(genPath)
 
