@@ -31,7 +31,9 @@ module.exports = {
         route: '/auth',
         passwd: '123456',
         encryptInDev: true,
-        expires: 1000  * 60
+        expires: 1000 * 60,
+        // version >= 0.1.0
+        checkAll: true
       }
     ]
 }
@@ -41,6 +43,24 @@ module.exports = {
 
 ### Step 2: 配置博客中需要加密访问的文章
 
+- 如果相对所有路由开启验证. *版本需 >=0.1.0*
+
+```js
+// .vuepress/config.js
+module.exports = {
+  plugins: [
+    [
+      'posts-encrypt',
+      {
+        // Here!!!
+        checkAll: true, // version >= 0.1.0
+        passwd: 123456
+        // ...
+      }
+    ]
+}
+```
+**提示**: _如果设置了 `checkAll: true`，那单独为每个文章设置的密码将会失效。_
 - 在需要加密访问的文章的 [Front Matter](https://vuepress.vuejs.org/zh/guide/frontmatter.html#%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%E7%9A%84-front-matter) 中设置 `secret: true`
 
 ```yml
@@ -164,6 +184,8 @@ interface Options {
   expires?: number
   // 自定义模板时是否需要注入其他资源
   injectConfig?: InjectConfig
+  // 是否对所有路由开启验证
+  checkAll: false // version >= 0.1.0
 }
 
 const options: Options = {
@@ -172,6 +194,7 @@ const options: Options = {
   template: '', // 自定义模板的文件路径，不指定则使用默认模板
   encryptInDev: false, // 开发模式下是否开启文章加密（可用于预览）， 默认 false
   expires: 0, // 密码过期时间，默认永不过期
+  checkAll: false, // 是否对所有路由开启验证
   injectConfig: {
     // 自定义模板时，需要注入的外部资源配置
     less: '',

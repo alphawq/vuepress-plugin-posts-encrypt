@@ -31,8 +31,8 @@ module.exports = {
         route: '/auth',
         passwd: 123456,
         encryptInDev: true,
-        expires: 1000  * 60,
-        // version >= 0.0.7
+        expires: 1000 * 60,
+        // version >= 0.1.0
         checkAll: true
       }
     ]
@@ -43,7 +43,7 @@ module.exports = {
 
 ### Step 2: Configure the posts that need to be encrypted access in the blog
 
-- If you want to do check for all routing. *This feature is supported in version >=0.0.7*
+- If you want to do check for all routing. *This feature is supported in version >=0.1.0*
 
 ```js
 // .vuepress/config.js
@@ -53,7 +53,7 @@ module.exports = {
       'posts-encrypt',
       {
         // Here!!!
-        checkAll: true, // version >= 0.0.7
+        checkAll: true, // version >= 0.1.0
         passwd: 123456
         // ...
       }
@@ -185,7 +185,7 @@ interface Options {
   // Determine whether to inject other resources during template customization
   injectConfig?: InjectConfig
   // Enable all routing validation or not
-  checkAll?: boolean // version >= 0.07
+  checkAll?: boolean // version >= 0.1.0
 }
 
 // The default options
@@ -195,7 +195,7 @@ const options: Options = {
   template: '',
   encryptInDev: false,
   expires: 0,
-  checkAll: false, // version >= 0.07
+  checkAll: false, // version >= 0.1.0
   injectConfig: {
     less: '',
     iview: false,

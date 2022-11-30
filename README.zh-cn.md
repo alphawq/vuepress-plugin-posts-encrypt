@@ -31,8 +31,8 @@ module.exports = {
         route: '/auth',
         passwd: '123456',
         encryptInDev: true,
-        expires: 1000  * 60,
-        // version >= 0.0.7
+        expires: 1000 * 60,
+        // version >= 0.1.0
         checkAll: true
       }
     ]
@@ -43,7 +43,7 @@ module.exports = {
 
 ### Step 2: 配置博客中需要加密访问的文章
 
-- 如果相对所有路由开启验证. *版本需 >=0.0.7*
+- 如果相对所有路由开启验证. *版本需 >=0.1.0*
 
 ```js
 // .vuepress/config.js
@@ -53,7 +53,7 @@ module.exports = {
       'posts-encrypt',
       {
         // Here!!!
-        checkAll: true, // version >= 0.0.7
+        checkAll: true, // version >= 0.1.0
         passwd: 123456
         // ...
       }
@@ -185,7 +185,7 @@ interface Options {
   // 自定义模板时是否需要注入其他资源
   injectConfig?: InjectConfig
   // 是否对所有路由开启验证
-  checkAll: false // version >= 0.07
+  checkAll: false // version >= 0.1.0
 }
 
 const options: Options = {
