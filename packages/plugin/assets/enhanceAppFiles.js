@@ -1,4 +1,14 @@
-module.exports = function genEnhanceAppFile(path, STORAGE_KEY) {
+/*
+ * @Author: Aphasia alphawq@foxmail.com
+ * @Date: 2022-02-28 20:53:33
+ * @LastEditors: Aphasia alphawq@foxmail.com
+ * @LastEditTime: 2022-12-01 03:55:39
+ * @FilePath: /vuepress-plugin-posts-encrypt/packages/plugin/assets/enhanceAppFiles.js
+ * @Description: 前端路由守卫相关逻辑
+ *
+ * Copyright (c) 2022 by Aphasia alphawq@foxmail.com, All Rights Reserved.
+ */
+module.exports = function genEnhanceAppFile(path, STORAGE_KEY, CHECK_ALL_PATH_KEY) {
   return `export default ({ Vue, router, siteData, isServer }) => {
     // 获取所有需要加密的路由
     if(!isServer) {
@@ -25,12 +35,15 @@ module.exports = function genEnhanceAppFile(path, STORAGE_KEY) {
         }
       }
       const secretsRoutes = siteData.pages.filter(page => (page.frontmatter && page.frontmatter.secret ===  true))
+      
       // 存储已经解密过的文章路由
       router.beforeEach((to, from, next) => {
         let name = to.name
         let path = to.path
-        if(secretsRoutes.find(route => route.key === name)) {
-          if(getLocalStorageItem('${STORAGE_KEY}', name)) return next()
+        const secretsRoute = secretsRoutes.find(route => route.key === name);
+        if(secretsRoute) {
+          const checkAll = secretsRoute.frontmatter['${CHECK_ALL_PATH_KEY}'] === true;
+          if(getLocalStorageItem('${STORAGE_KEY}', checkAll ?  '${CHECK_ALL_PATH_KEY}' : name)) return next()
           let ele = document.createElement('a')
           // 需要将path替换成用户配置的内容
           ele.href = '${path}?redirect=' + encodeURIComponent(name) + '&path=' + encodeURIComponent(path)

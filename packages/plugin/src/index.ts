@@ -1,3 +1,13 @@
+/*
+ * @Author: Aphasia alphawq@foxmail.com
+ * @Date: 2022-02-28 20:53:33
+ * @LastEditors: Aphasia alphawq@foxmail.com
+ * @LastEditTime: 2022-12-01 01:40:00
+ * @FilePath: /vuepress-plugin-posts-encrypt/packages/plugin/src/index.ts
+ * @Description: 入口
+ *
+ * Copyright (c) 2022 by Aphasia alphawq@foxmail.com, All Rights Reserved.
+ */
 // @types
 import Vuepress from 'vuepress-types'
 // @dependencies
@@ -25,6 +35,8 @@ export interface Options {
   expires?: number
   // 自定义模板时是否需要注入其他资源
   injectConfig?: InjectConfig
+  // 所有页面开启验证
+  checkAll?: boolean
 }
 
 export type TypedMap<T = string, U = string> = Map<T, U>

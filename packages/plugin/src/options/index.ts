@@ -45,6 +45,7 @@ export default (options: Options, ctx: Context): Vuepress.PluginOptionAPI => {
 
   const genCiphertext = () => {
     const size = encryptedPathMap.size
+    // 拼接密文
     const text = [...encryptedPathMap.entries()].reduce((pre, cur, index) => {
       const [k, v] = cur
       return `${pre}${k}_${v}${index == size - 1 ? '' : ';'}`
@@ -52,7 +53,7 @@ export default (options: Options, ctx: Context): Vuepress.PluginOptionAPI => {
 
     return (genPath, options, cb) => {
       try {
-        const jsContent = genInjectedJS(text, base, isCustom, expires)
+        const jsContent = genInjectedJS(_options, text, base, isCustom, expires)
         const uglifiedJS = uglify(
           jsContent,
           Object.assign(
