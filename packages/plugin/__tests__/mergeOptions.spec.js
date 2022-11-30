@@ -1,3 +1,13 @@
+/*
+ * @Author: Aphasia alphawq@foxmail.com
+ * @Date: 2022-02-28 20:53:33
+ * @LastEditors: Aphasia alphawq@foxmail.com
+ * @LastEditTime: 2022-12-01 04:33:41
+ * @FilePath: /vuepress-plugin-posts-encrypt/packages/plugin/__tests__/mergeOptions.spec.js
+ * @Description: 单元测试
+ *
+ * Copyright (c) 2022 by Aphasia alphawq@foxmail.com, All Rights Reserved.
+ */
 import { mergeOptions, DefaultOptions, TMPL_PATH } from '@plugin/src/utils/index'
 describe('Options Merge', () => {
   const expected = {
@@ -6,6 +16,7 @@ describe('Options Merge', () => {
     template: TMPL_PATH,
     encryptInDev: true,
     expires: 1000 * 6,
+    checkAll: false,
     injectConfig: {
       less: '',
       iview: false,

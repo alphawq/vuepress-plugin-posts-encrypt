@@ -1,3 +1,13 @@
+/*
+ * @Author: Aphasia alphawq@foxmail.com
+ * @Date: 2022-02-28 20:53:33
+ * @LastEditors: Aphasia alphawq@foxmail.com
+ * @LastEditTime: 2022-12-01 04:09:10
+ * @FilePath: /vuepress-plugin-posts-encrypt/packages/blog/docs/.vuepress/config.js
+ * @Description: 示例
+ *
+ * Copyright (c) 2022 by Aphasia alphawq@foxmail.com, All Rights Reserved.
+ */
 const sidebar = require('./configs/index')
 
 module.exports = {
@@ -18,9 +28,10 @@ module.exports = {
       'posts-encrypt',
       {
         route: '/auth',
-        passwd: '1234',
+        passwd: 12345,
         encryptInDev: true,
-        expires: 1000 * 60
+        expires: 1000 * 600,
+        checkAll: true
       }
     ],
     [

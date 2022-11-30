@@ -18,6 +18,7 @@ export const ANIMATECSS_TAG = `<link rel="stylesheet" href="//cdnjs.cloudflare.c
 export const IVIEW_JS_TAG = `<script type="text/javascript" src="//unpkg.com/view-design@4.7.0/dist/iview.min.js"></script>`
 
 export const STORAGE_KEY = '__vuepress_posts_encrypt_plugin__'
+export const CHECK_ALL_PATH_KEY = '__vuepress_posts_encrypt_plugin__check_all__'
 export const TMPL_PATH = pathResolve(__dirname, '../../assets/index.html')
 export const LESS_PATH = pathResolve(__dirname, '../../assets/index.less')
 export const isObject = (o): boolean => o && typeof o === 'object'
@@ -35,6 +36,7 @@ export const DefaultOptions: Options = {
   template: TMPL_PATH, // 默认模板文件路径
   encryptInDev: false, // 开发模式下是否开启文章加密
   expires: 0, // 密码过期时间，默认永不过期
+  checkAll: false, // 是否全量文章开启校验
   // 自定义模板时，需要注入的外部资源配置
   injectConfig: {
     less: '',
@@ -75,10 +77,11 @@ export const mergeOptions = (base = DefaultOptions, options = {}): Options => {
  * @param {boolean} isCustom 是否是用户自定义模板
  * @returns {string}
  */
-export const genInjectedJS = (text: string, base: string, isCustom: boolean, expires?: number) => {
+export const genInjectedJS = (options: Options, text: string, base: string, isCustom: boolean, expires?: number) => {
   // 按照文档，base应该始终以 `/` 开头并以 `/` 结束，参见[https://vuepress.vuejs.org/zh/guide/assets.html#%E5%9F%BA%E7%A1%80%E8%B7%AF%E5%BE%84]
   const { dir, base: _base } = pathParse(base)
   base = _base ? `${dir}${_base}` : _base
+  const { checkAll } = options
 
   const part1 = `
       /**
@@ -120,7 +123,7 @@ export const genInjectedJS = (text: string, base: string, isCustom: boolean, exp
        * */ 
       function validate(password) {
         const encryptedMsg = '${text}'
-        const reg = new RegExp(\`\${getQuery('redirect')}_([^;]*)\`)
+        const reg = '${checkAll}' === 'true' ? new RegExp('${CHECK_ALL_PATH_KEY}_([^;]*)') : new RegExp(\`\${getQuery('redirect')}_([^;]*)\`)
         const matched = encryptedMsg.match(reg)
         if(!matched) return false
         const ciphertext = matched[1]
@@ -137,7 +140,7 @@ export const genInjectedJS = (text: string, base: string, isCustom: boolean, exp
        * Part2：密码验证通过后，需要将已验证通过的路由写入到 localstorage，防止死循环
        * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
        * */ 
-      setStorageItem('${STORAGE_KEY}', getQuery('redirect'), {
+      setStorageItem('${STORAGE_KEY}', '${checkAll ? CHECK_ALL_PATH_KEY : `getQuery('redirect')`}', {
         value: true,
         expires: ${typeof expires === 'number' ? expires : 0}
       })`
